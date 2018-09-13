@@ -1,0 +1,108 @@
+<html>
+
+<head>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.2/angular.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+        crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="node_modules/angularjs-bootstrap-datetimepicker/src/css/datetimepicker.css" />
+
+    <script type="text/javascript" src="node_modules/moment/moment.js"></script>
+    <script type="text/javascript" src="node_modules/angularjs-bootstrap-datetimepicker/src/js/datetimepicker.js"></script>
+    <script type="text/javascript" src="node_modules/angularjs-bootstrap-datetimepicker/src/js/datetimepicker.templates.js"></script>
+    <script type="text/javascript" src="node_modules/angular-date-time-input/src/dateTimeInput.js"></script>
+
+    <script src="node_modules/ng-file-upload/dist/ng-file-upload-shim.js"></script>
+    <script src="node_modules/ng-file-upload/dist/ng-file-upload.js"></script>
+    <script src="app.js"></script>
+
+</head>
+
+<body ng-app="myModule">
+    <div ng-controller="myController">
+        <div first-directive></div>
+        <div second-directive></div>
+        <div third-directive></div>
+    </div>
+
+    <div ng-controller="myController2">
+        <input ng-model="inpvalue" type="text" />
+    </div>
+
+    <div ng-controller="CounterController">
+        <div>
+            {{count}}
+            {{companyName}}
+        </div>
+
+    </div>
+    <form ng-controller="FileCtrl" name="fileform">
+        <div class="button" ngf-select ng-model="file" ngf-pattern="'image/*'" name="file" ngf-max-size="20MB">Select</div>
+        <button type="submit" ng-click="submit()">submit</button>
+    </form>
+
+    <div>
+        Regular form
+        <form method="POST" ENCTYPE="multipart/form-data" action="http://localhost:8001/postinfo">
+            Select a file
+            <input name="avatar" type="file" />
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <div ng-controller=OkController>
+        Ok Controller.
+        <div look>
+            <!-- directive defn overrides when transclusion not used-->
+            Let's dance.
+        </div>
+
+        <div fourth-directive>
+            Some contents not related to fourth-directive
+        </div>
+    </div>
+
+    <div ng-controller="CntController">
+        Count: {{count}}
+        <button type="button" ng-click="increment()">+</button>
+        <button type="button" ng-click="decrement()">-</button>
+    </div>
+
+
+    <div ng-controller="SCtrl">
+        <div class="dropdown">
+            <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="" href="#">
+                <div class="input-group">
+                    <input 
+                    data-date-time-input="DD-MMM-YYYY"
+                    type="text"
+                    class="form-control"
+                    data-ng-model="data.dateDropDownInput">
+                    <span
+                        class="input-group-addon">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                    </span>
+                </div>
+            </a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                <datetimepicker data-on-set-time="onTimeSet(newDate,oldDate)" data-before-render="beforeRender($view, $dates, $leftDate, $upDate, $rightDate)"
+                    data-ng-model="data.dateDropDownInput" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }" />
+            </ul>
+        </div>
+        <button ng-click="sendSelectedDate()">Send</button>
+    </div>
+
+</body>
+
+</html>
