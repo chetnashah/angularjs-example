@@ -200,3 +200,21 @@ module.controller('SCtrl', ['$scope', function($scope) {
     }
 }]);
 
+module.controller('SSController', function(){
+    // this is converted into class instance property
+    // name of instance is specfied in html via
+    // SSController as instName
+    this.title = "SSController title!";
+    this.details = {
+        name: 'JOhn',
+        age: 229
+    };
+});
+
+module.component('myComponent', {
+    bindings: {
+        subtitle: '@',// get string value from subtitle attribute
+        details: '='// get  details attribute value treated as expr 
+    },
+    template: "<div><h3>Subtitle</h3><p>{{$ctrl}}</p></div>"
+});

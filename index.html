@@ -103,6 +103,12 @@
         <button ng-click="sendSelectedDate()">Send</button>
     </div>
 
+    <div ng-controller="SSController as ssc">
+        {{ssc.title}}
+        <my-component subtitle="Hey world" details="ssc.details">
+
+        </my-component>
+    </div>
 </body>
 
 </html>
