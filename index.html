@@ -18,6 +18,8 @@
 
     <link rel="stylesheet" href="node_modules/angularjs-bootstrap-datetimepicker/src/css/datetimepicker.css" />
 
+    <link rel="stylesheet" href="app.css" />
+
     <script type="text/javascript" src="node_modules/moment/moment.js"></script>
     <script type="text/javascript" src="node_modules/angularjs-bootstrap-datetimepicker/src/js/datetimepicker.js"></script>
     <script type="text/javascript" src="node_modules/angularjs-bootstrap-datetimepicker/src/js/datetimepicker.templates.js"></script>
@@ -109,6 +111,24 @@
 
         </my-component>
     </div>
+    <form 
+    name="exForm"
+    style="padding: 10px;"
+    ng-controller="ExampleFormController">
+        <input 
+            ng-pattern="/^\d+$/"
+            ng-model="inp"
+            ng-maxlength=3
+            ng-model-options="{ getterSetter: true }"
+            name="nm" placeholder="Some input" />
+        <div>{{inp}}</div>
+        <div>Touched: {{exForm.nm.$touched}}</div>
+        <div>Valid: {{exForm.nm.$valid}}</div>
+        <div>Dirty: {{exForm.nm.$dirty}}</div>
+        <div>Pristine: {{exForm.nm.$pristine}}</div>
+        <div>Errors: {{exForm.nm.$error}}</div>
+        <button ng-click="checkForm()">Check form~</button>
+    </form>
 </body>
 
 </html>

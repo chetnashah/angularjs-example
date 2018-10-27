@@ -1,8 +1,8 @@
 console.log('ran app.js');
 
-var module = angular.module('myModule', ['ngFileUpload', 'ui.bootstrap.datetimepicker', 'ui.dateTimeInput']);
+var mymodule = angular.module('myModule', ['ngFileUpload', 'ui.bootstrap.datetimepicker', 'ui.dateTimeInput']);
 
-module.provider("myProvider", function() {
+mymodule.provider("myProvider", function() {
     // only called once, return value memoized
     this.$get = function() {
         console.log('executing providers\' this.$get');
@@ -11,17 +11,17 @@ module.provider("myProvider", function() {
 });
 
 // run block
-module.run(['$rootScope', function($rootScope) {
+mymodule.run(['$rootScope', function($rootScope) {
     $rootScope.companyName = 'Googly';
 }]);
 
 // similar to provider without the this.$get boilerplate
-module.factory("myProvider", function() {
+mymodule.factory("myProvider", function() {
         console.log('executing factory fn');
         return "my factory-value";
 });
 
-module.controller('FileCtrl', ['$scope', 'Upload', function($scope, Upload){
+mymodule.controller('FileCtrl', ['$scope', 'Upload', function($scope, Upload){
     $scope.submit = function(){
         console.log('submitting shit');
         console.log('fileform = ', $scope.fileform);
@@ -49,25 +49,25 @@ module.controller('FileCtrl', ['$scope', 'Upload', function($scope, Upload){
         });
     };
 }])
-module.controller('myController', ['myProvider', '$scope' ,function(myProvider, $scope){
+mymodule.controller('myController', ['myProvider', '$scope' ,function(myProvider, $scope){
     console.log('myController execution');
     console.log('myProvider : ' + myProvider);
     $scope.c = 999;
 }]);
 
-module.controller('myController2', ['myProvider' ,function(myProvider){
+mymodule.controller('myController2', ['myProvider' ,function(myProvider){
     console.log('myController2 execution');
     console.log('myProvider : ' + myProvider);
 }]);
 
-module.directive('firstDirective', function(){
+mymodule.directive('firstDirective', function(){
     // this directive uses the scope of the container
     return {
         template: "I am custom-directive without scope specified, so c = {{c}}"
     };
 });
 
-module.directive('secondDirective', function(){
+mymodule.directive('secondDirective', function(){
     return {
         template: "I am a template for sencond-directive, z = {{z}}",
         // controller constructor fn
@@ -79,7 +79,7 @@ module.directive('secondDirective', function(){
     };
 });
 
-module.directive('thirdDirective', function(){
+mymodule.directive('thirdDirective', function(){
     return {
         template: "I am template for third directive..",
         // below field introduces scope for directive
@@ -87,7 +87,7 @@ module.directive('thirdDirective', function(){
     };
 });
 
-module.controller('CounterController', ['$scope' ,function($scope){
+mymodule.controller('CounterController', ['$scope' ,function($scope){
     $scope.count = 0;
     $scope.$watch(function($scope){
         return $scope.count;
@@ -136,19 +136,19 @@ module.controller('CounterController', ['$scope' ,function($scope){
     //
 }]);
 
-module.controller('OkController', ['$scope', function($scope){
+mymodule.controller('OkController', ['$scope', function($scope){
     console.log('OkController');
 }]);
 
-module.directive('look', function(){
+mymodule.directive('look', function(){
     return {
         template: "<div>look directive contents<div ng-transclude></div></div>",
-        transclude: true// transclude should be used when we want ot capture
+        transclude: 'true'// transclude should be used when we want ot capture
         // content of the markup where this directive is applied.
     };
 });
 
-module.directive('fourthDirective', function(){
+mymodule.directive('fourthDirective', function(){
     return {
         templateUrl: "fourthdir.html",
         transclude: true,
@@ -165,7 +165,7 @@ module.directive('fourthDirective', function(){
     };
 });
 
-module.controller('CntController', ['$scope','$rootScope','$controller', function($scope, $rootScope, $controller){
+mymodule.controller('CntController', ['$scope','$rootScope','$controller', '$filter', function($scope, $rootScope, $controller, $filter){
     console.log('CntController');
     $scope.count = 0;
     $scope.increment = function(){
@@ -176,9 +176,16 @@ module.controller('CntController', ['$scope','$rootScope','$controller', functio
         $scope.count = $scope.count - 1;
         $rootScope.$emit('cnt',$scope.count);
     }
+
+    $scope.originalArr = [{a:7},{a : 6} ,{a : 5},{a: 4},{ a: 3},{a: 2} ,{a : 1}];
+    console.log($scope.originalArr);
+    $scope.retArr = $filter('orderBy')($scope.originalArr, function(item){ return item.a});
+    $scope.retArr[0].a = 999;
+    console.log($scope.originalArr);
+    console.log($scope.retArr);
 }]);
 
-module.controller('SCtrl', ['$scope', function($scope) {
+mymodule.controller('SCtrl', ['$scope', function($scope) {
     console.log('some reg happening');
     $scope.data = {};
     $scope.data.dateDropDownInput = new Date(2011,12,22);
@@ -200,7 +207,7 @@ module.controller('SCtrl', ['$scope', function($scope) {
     }
 }]);
 
-module.controller('SSController', function(){
+mymodule.controller('SSController', function(){
     // this is converted into class instance property
     // name of instance is specfied in html via
     // SSController as instName
@@ -209,12 +216,38 @@ module.controller('SSController', function(){
         name: 'JOhn',
         age: 229
     };
+    this.originalArr = [{a:7},{a : 6} ,{a : 5},{a: 4},{ a: 3},{a: 2} ,{a : 1}];
+
 });
 
-module.component('myComponent', {
+mymodule.component('myComponent', {
     bindings: {
         subtitle: '@',// get string value from subtitle attribute
         details: '='// get  details attribute value treated as expr 
     },
     template: "<div><h3>Subtitle</h3><p>{{$ctrl}}</p></div>"
 });
+
+mymodule.controller('ExampleFormController', function ExampleFormController($scope){
+
+    $scope.checkForm = function(){
+        console.log('checking form!');
+        console.log($scope.inp);
+        console.log('$scope.exForm.nm = ', $scope.exForm.nm);
+    }
+});
+
+mymodule.controller('PasswordController', function PasswordController($scope){
+   $scope.password = '';
+  $scope.grade = function() {
+    var size = $scope.password.length;
+    if (size > 8) {
+      $scope.strength = 'strong';
+    } else if (size > 3) {
+      $scope.strength = 'medium';
+    } else {
+      $scope.strength = 'weak';
+    }
+  };   
+})
+

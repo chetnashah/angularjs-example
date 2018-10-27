@@ -14,7 +14,13 @@ module.exports = function(config) {
 
 
     // list of files / patterns to load in the browser
-    files: ['test/*.js'],
+    files: ['lib/angular.js', 'lib/angular-mocks.js', 
+    'node_modules/angularjs-bootstrap-datetimepicker/src/js/datetimepicker.js',
+    'node_modules/angularjs-bootstrap-datetimepicker/src/js/datetimepicker.templates.js',
+    'node_modules/ng-file-upload/dist/*.js',
+    'node_modules/angular-date-time-input/src/dateTimeInput.js',
+    'app.js',
+    'test/*.js', 'spec/*.js'],
 
 
     // list of files / patterns to exclude

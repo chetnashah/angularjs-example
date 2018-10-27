@@ -1,0 +1,40 @@
+input.ng-invalid {
+    background-color: pink;
+}
+
+input.ng-valid {
+    background-color: lightgreen;
+}
+
+input.ng-invalid-pattern {
+    border-bottom-color: blue;
+    border-width: 2px;
+}
+
+input.ng-touched {
+    border-left-color: greenyellow;
+    border-width: 2px;
+}
+
+input.ng-untouched {
+    border-left-color: red;
+    border-width: 2px;
+}
+
+input.ng-pristine {
+    border-width: 2px;
+    border-right-color: deeppink;
+}
+
+input.ng-empty {
+    border-top-color: lightsalmon;
+    border-width: 2px;
+}
+
+input.ng-not-empty {
+    border-width: 2px;
+    border-top-color: brown;
+}
+
+
+
