@@ -1,8 +1,26 @@
 console.log('ran app.js');
 
-var mymodule = angular.module('myModule', ['ngFileUpload', 'ui.bootstrap.datetimepicker', 'ui.dateTimeInput']);
+var mymodule = angular.module('myModule', ['ngFileUpload', 'ui.bootstrap.datetimepicker', 'ui.dateTimeInput', 'ui.router']);
 
-mymodule.provider("myProvider", function() {
+mymodule.config(function($stateProvider, $locationProvider){
+   $locationProvider.html5Mode({ enabled: true, requireBase: false })
+
+    var helloState = {
+        name: 'hello',
+        url: '/hello',
+        template: '<h1>This is hello route content</h1>'
+    };
+    var aboutState = {
+        name: 'about',
+        url: '/about',
+        template: '<h2>This is about!!!</h2>'
+    };
+
+    $stateProvider.state(helloState);
+    $stateProvider.state(aboutState);
+});
+
+angular.module('myModule').provider("myProvider", function() {
     // only called once, return value memoized
     this.$get = function() {
         console.log('executing providers\' this.$get');
@@ -21,7 +39,7 @@ mymodule.factory("myProvider", function() {
         return "my factory-value";
 });
 
-mymodule.controller('FileCtrl', ['$scope', 'Upload', function($scope, Upload){
+angular.module('myModule').controller('FileCtrl', ['$scope', 'Upload', function($scope, Upload){
     $scope.submit = function(){
         console.log('submitting shit');
         console.log('fileform = ', $scope.fileform);
@@ -67,7 +85,7 @@ mymodule.directive('firstDirective', function(){
     };
 });
 
-mymodule.directive('secondDirective', function(){
+angular.module('myModule').directive('secondDirective', function(){
     return {
         template: "I am a template for sencond-directive, z = {{z}}",
         // controller constructor fn
@@ -87,7 +105,7 @@ mymodule.directive('thirdDirective', function(){
     };
 });
 
-mymodule.controller('CounterController', ['$scope' ,function($scope){
+angular.module('myModule').controller('CounterController', ['$scope' ,function($scope){
     $scope.count = 0;
     $scope.$watch(function($scope){
         return $scope.count;

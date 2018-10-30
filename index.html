@@ -24,7 +24,7 @@
     <script type="text/javascript" src="node_modules/angularjs-bootstrap-datetimepicker/src/js/datetimepicker.js"></script>
     <script type="text/javascript" src="node_modules/angularjs-bootstrap-datetimepicker/src/js/datetimepicker.templates.js"></script>
     <script type="text/javascript" src="node_modules/angular-date-time-input/src/dateTimeInput.js"></script>
-
+    <script type="text/javascript" src="https://unpkg.com/@uirouter/angularjs@1.0.20/release/angular-ui-router.js"></script>
     <script src="node_modules/ng-file-upload/dist/ng-file-upload-shim.js"></script>
     <script src="node_modules/ng-file-upload/dist/ng-file-upload.js"></script>
     <script src="app.js"></script>
@@ -32,6 +32,18 @@
 </head>
 
 <body ng-app="myModule">
+    <!--
+        A ui-sref is a directive, 
+        and behaves similar to an html href. 
+        Instead of referencing a url like an href, 
+        it references a state. 
+        The ui-sref directive automatically builds 
+        a href attribute for you (<a href=...></a>) 
+        based on your state’s url
+    -->
+    <a ui-sref="about" ui-sref-active="active">About</a>
+    <a ui-sref="hello" ui-sref-active="active">Hello</a>
+    <ui-view></ui-view>
     <div ng-controller="myController">
         <div first-directive></div>
         <div second-directive></div>
