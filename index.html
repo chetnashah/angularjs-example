@@ -41,10 +41,15 @@
         a href attribute for you (<a href=...></a>) 
         based on your state’s url
     -->
-    <a ui-sref="about" ui-sref-active="active">About</a>
+   <a ui-sref="about" ui-sref-active="active">About</a>
     <a ui-sref="hello" ui-sref-active="active">Hello</a>
+    <a ui-sref="careers" ui-sref-active="active">Hola</a>
     <ui-view></ui-view>
     <div ng-controller="myController">
+     <button ng-click="goToAbout()">Go to /about</button>
+    <button ng-click="goToHello()">Go to /hello</button>
+    <button ng-click="goToCareers()">Go to /careers</button>
+    
         <div first-directive></div>
         <div second-directive></div>
         <div third-directive></div>

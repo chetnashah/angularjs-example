@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node --inspect server.js",
     "test": "karma start my.conf.js"
   },
   "keywords": [],

@@ -16,8 +16,22 @@ mymodule.config(function($stateProvider, $locationProvider){
         template: '<h2>This is about!!!</h2>'
     };
 
+    var careersState = {
+        name: 'careers',
+        url: '/careers',
+        component: 'careers'
+    };
+
     $stateProvider.state(helloState);
     $stateProvider.state(aboutState);
+    $stateProvider.state(careersState);
+});
+
+angular.module('myModule').component('careers',{
+    controller: function(){
+        this.title = 'HOLA TITLE'
+    },
+    template: '<h2>The template of careers: {{$ctrl.title}}</h2>'
 });
 
 angular.module('myModule').provider("myProvider", function() {
@@ -67,10 +81,23 @@ angular.module('myModule').controller('FileCtrl', ['$scope', 'Upload', function(
         });
     };
 }])
-mymodule.controller('myController', ['myProvider', '$scope' ,function(myProvider, $scope){
+mymodule.controller('myController', ['myProvider', '$scope', '$state', function(myProvider, $scope, $state){
     console.log('myController execution');
     console.log('myProvider : ' + myProvider);
     $scope.c = 999;
+    $scope.goToAbout = function(){
+        $state.go('about');
+    }
+    $scope.goToHello = function(){
+        $state.go('hello');
+    }
+    $scope.goToCareers = function(){
+        $state.go('careers');
+    }
+
+
+
+    
 }]);
 
 mymodule.controller('myController2', ['myProvider' ,function(myProvider){
