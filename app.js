@@ -22,17 +22,47 @@ mymodule.config(function($stateProvider, $locationProvider){
         component: 'careers'
     };
 
+    var careerDepartmentState = { 
+     name: 'careers.department', 
+     url: '/{departmentId}', 
+     component: 'department',
+    }
+
+    var welcomeState = {
+        name: 'welcome',
+        url: '/welcome/{wid}',// dynamic part of url managed by $stateParams
+        component: 'welcome'
+    }
+
     $stateProvider.state(helloState);
     $stateProvider.state(aboutState);
     $stateProvider.state(careersState);
+    $stateProvider.state(welcomeState);
+    $stateProvider.state(careerDepartmentState);
+
 });
+
+angular.module('myModule').component('welcome', {
+    controller: function($stateParams) {
+        this.a = 11;
+        this.wid = $stateParams.wid;
+    },
+    template: '<h2>Welcome: {{$ctrl.a}} , stateParam id : {{$ctrl.wid}}</h2>'
+});
+
+angular.module('myModule').component('department', {
+    controller: function($stateParams) {
+        this.did = $stateParams.departmentId;
+    },
+    template: '<h2>Department: {{$ctrl.did}}</h2>'
+});
+
 
 angular.module('myModule').component('careers',{
     controller: function(){
-        this.title = 'HOLA TITLE'
     },
-    template: '<h2>The template of careers: {{$ctrl.title}}</h2>'
-});
+    templateUrl: 'careers.html'
+})
 
 angular.module('myModule').provider("myProvider", function() {
     // only called once, return value memoized
@@ -95,8 +125,9 @@ mymodule.controller('myController', ['myProvider', '$scope', '$state', function(
         $state.go('careers');
     }
 
-
-
+    $scope.goToWelcome = function(){
+        $state.go('welcome', {wid: 111})
+    }
     
 }]);
 

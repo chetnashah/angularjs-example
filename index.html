@@ -43,12 +43,14 @@
     -->
    <a ui-sref="about" ui-sref-active="active">About</a>
     <a ui-sref="hello" ui-sref-active="active">Hello</a>
-    <a ui-sref="careers" ui-sref-active="active">Hola</a>
+    <a ui-sref="careers" ui-sref-active="active">Careers</a>
+    <a ui-sref="welcome({wid: 222})" ui-sref-active="active">welcome</a>
     <ui-view></ui-view>
     <div ng-controller="myController">
      <button ng-click="goToAbout()">Go to /about</button>
     <button ng-click="goToHello()">Go to /hello</button>
     <button ng-click="goToCareers()">Go to /careers</button>
+    <button ng-click="goToWelcome()">Go to /welcome/123</button>
     
         <div first-directive></div>
         <div second-directive></div>
