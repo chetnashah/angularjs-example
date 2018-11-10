@@ -61,7 +61,7 @@ angular.module('myModule').component('department', {
 angular.module('myModule').component('careers',{
     controller: function(){
     },
-    templateUrl: 'careers.html'
+    templateUrl: '/careers.html'
 })
 
 angular.module('myModule').provider("myProvider", function() {
@@ -226,7 +226,7 @@ mymodule.directive('look', function(){
 
 mymodule.directive('fourthDirective', function(){
     return {
-        templateUrl: "fourthdir.html",
+        templateUrl: "/fourthdir.html",
         transclude: true,
         link: function(scope, iElement, iAttrs, controller, transclude) {
             console.log('fourth-directive, link function!');

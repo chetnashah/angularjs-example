@@ -1,0 +1,143 @@
+<html>
+
+<head>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.2/angular.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+        crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+    <script src= "https://unpkg.com/@uirouter/angularjs@1.0.20/release/angular-ui-router.js"></script>
+
+    <link rel="stylesheet" href="/all.css" />
+    <script src="/all.js"></script>
+</head>
+
+<body ng-app="myModule">
+    <!--
+        A ui-sref is a directive, 
+        and behaves similar to an html href. 
+        Instead of referencing a url like an href, 
+        it references a state. 
+        The ui-sref directive automatically builds 
+        a href attribute for you (<a href=...></a>) 
+        based on your state’s url
+    -->
+   <a ui-sref="about" ui-sref-active="active">About</a>
+    <a ui-sref="hello" ui-sref-active="active">Hello</a>
+    <a ui-sref="careers" ui-sref-active="active">Careers</a>
+    <a ui-sref="welcome({wid: 222})" ui-sref-active="active">welcome</a>
+    <ui-view></ui-view>
+    <div ng-controller="myController">
+     <button ng-click="goToAbout()">Go to /about</button>
+    <button ng-click="goToHello()">Go to /hello</button>
+    <button ng-click="goToCareers()">Go to /careers</button>
+    <button ng-click="goToWelcome()">Go to /welcome/123</button>
+    
+        <div first-directive></div>
+        <div second-directive></div>
+        <div third-directive></div>
+    </div>
+
+    <div ng-controller="myController2">
+        <input ng-model="inpvalue" type="text" />
+    </div>
+
+    <div ng-controller="CounterController">
+        <div>
+            {{count}}
+            {{companyName}}
+        </div>
+
+    </div>
+    <form ng-controller="FileCtrl" name="fileform">
+        <div class="button" ngf-select ng-model="file" ngf-pattern="'image/*'" name="file" ngf-max-size="20MB">Select</div>
+        <button type="submit" ng-click="submit()">submit</button>
+    </form>
+
+    <div>
+        Regular form
+        <form method="POST" ENCTYPE="multipart/form-data" action="http://localhost:8001/postinfo">
+            Select a file
+            <input name="avatar" type="file" />
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <div ng-controller=OkController>
+        Ok Controller.
+        <div look>
+            <!-- directive defn overrides when transclusion not used-->
+            Let's dance.
+        </div>
+
+        <div fourth-directive>
+            Some contents not related to fourth-directive
+        </div>
+    </div>
+
+    <div ng-controller="CntController">
+        Count: {{count}}
+        <button type="button" ng-click="increment()">+</button>
+        <button type="button" ng-click="decrement()">-</button>
+    </div>
+
+
+    <div ng-controller="SCtrl">
+        <div class="dropdown">
+            <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="" href="#">
+                <div class="input-group">
+                    <input 
+                    data-date-time-input="DD-MMM-YYYY"
+                    type="text"
+                    class="form-control"
+                    data-ng-model="data.dateDropDownInput">
+                    <span
+                        class="input-group-addon">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                    </span>
+                </div>
+            </a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                <datetimepicker data-on-set-time="onTimeSet(newDate,oldDate)" data-before-render="beforeRender($view, $dates, $leftDate, $upDate, $rightDate)"
+                    data-ng-model="data.dateDropDownInput" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }" />
+            </ul>
+        </div>
+        <button ng-click="sendSelectedDate()">Send</button>
+    </div>
+
+    <div ng-controller="SSController as ssc">
+        {{ssc.title}}
+        <my-component subtitle="Hey world" details="ssc.details">
+
+        </my-component>
+    </div>
+    <form 
+    name="exForm"
+    style="padding: 10px;"
+    ng-controller="ExampleFormController">
+        <input 
+            ng-pattern="/^\d+$/"
+            ng-model="inp"
+            ng-maxlength=3
+            ng-model-options="{ getterSetter: true }"
+            name="nm" placeholder="Some input" />
+        <div>{{inp}}</div>
+        <div>Touched: {{exForm.nm.$touched}}</div>
+        <div>Valid: {{exForm.nm.$valid}}</div>
+        <div>Dirty: {{exForm.nm.$dirty}}</div>
+        <div>Pristine: {{exForm.nm.$pristine}}</div>
+        <div>Errors: {{exForm.nm.$error}}</div>
+        <button ng-click="checkForm()">Check form~</button>
+    </form>
+</body>
+
+</html>
