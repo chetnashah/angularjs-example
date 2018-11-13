@@ -1,4 +1,4 @@
-console.log('ran app.js');
+console.log('zup app.js 888');
 
 var mymodule = angular.module('myModule', ['ngFileUpload', 'ui.bootstrap.datetimepicker', 'ui.dateTimeInput', 'ui.router']);
 
@@ -67,7 +67,7 @@ angular.module('myModule').component('careers',{
 angular.module('myModule').provider("myProvider", function() {
     // only called once, return value memoized
     this.$get = function() {
-        console.log('executing providers\' this.$get');
+        console.log('executing   providers\' this.$get');
         return "my value";
     }
 });
@@ -112,7 +112,7 @@ angular.module('myModule').controller('FileCtrl', ['$scope', 'Upload', function(
     };
 }])
 mymodule.controller('myController', ['myProvider', '$scope', '$state', function(myProvider, $scope, $state){
-    console.log('myController execution');
+    console.log('myController  execution');
     console.log('myProvider : ' + myProvider);
     $scope.c = 999;
     $scope.goToAbout = function(){
@@ -132,7 +132,7 @@ mymodule.controller('myController', ['myProvider', '$scope', '$state', function(
 }]);
 
 mymodule.controller('myController2', ['myProvider' ,function(myProvider){
-    console.log('myController2 execution');
+    console.log('myController2    execution');
     console.log('myProvider : ' + myProvider);
 }]);
 

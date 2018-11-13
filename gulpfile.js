@@ -3,14 +3,18 @@
 var gulp = require('gulp');
 var concat = require('gulp-concat');
 var del = require('del');
+var browserSync = require('browser-sync').create();
+var runSequence = require('run-sequence');
 
-gulp.task('build', ['clean', 'build:tpl', 'build:scripts', 'build:css']);
-
-gulp.task('clean', function(){
-    del('build');
+gulp.task('build', ['clean'], function(done){
+    runSequence('build:scripts', done);
 });
 
-gulp.task('build:scripts', function(){
+gulp.task('clean', function(done){
+    return del(['build']);
+});
+
+gulp.task('build:scripts',['build:tpl'], function(done){
     var scripts = [
         'node_modules/moment/moment.js',
         "node_modules/angularjs-bootstrap-datetimepicker/src/js/datetimepicker.js",
@@ -21,11 +25,11 @@ gulp.task('build:scripts', function(){
         "src/js/app.js"
     ];
     return gulp.src(scripts)
-    .pipe(concat('all.js'))
+    .pipe(concat('all.js', {newLine: ';'}))
     .pipe(gulp.dest('build'));
 });
 
-gulp.task('build:tpl', function(){
+gulp.task('build:tpl',['build:css'], function(){
     var templates = [
         "src/tpl/fourthdir.html",
         "src/tpl/careers.html",
@@ -43,3 +47,18 @@ gulp.task('build:css', function(){
     .pipe(concat('all.css'))
     .pipe(gulp.dest('build'));
 });
+
+gulp.task('all-watch', ['build'], function(cb){
+    
+    browserSync.reload();
+    cb();
+});
+
+gulp.task('default', function(){
+// Start a Browsersync proxy
+browserSync.init({
+    proxy: "http://localhost:4000"
+});
+
+    gulp.watch("src/js/*.js", ['all-watch']);
+})
