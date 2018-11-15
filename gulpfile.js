@@ -54,7 +54,7 @@ gulp.task('all-watch', ['build'], function(cb){
     cb();
 });
 
-gulp.task('default', function(){
+gulp.task('default', ['build'], function(){
 // Start a Browsersync proxy
 browserSync.init({
     proxy: "http://localhost:4000"

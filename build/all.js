@@ -8147,9 +8147,9 @@ ngFileUpload.service('UploadExif', ['UploadResize', '$q', function (UploadResize
   return upload;
 }]);
 
-;console.log('zup app.js 888');
+;console.log('boom boom app.js 888');
 
-var mymodule = angular.module('myModule', ['ngFileUpload', 'ui.bootstrap.datetimepicker', 'ui.dateTimeInput', 'ui.router']);
+var mymodule = angular.module('myModule', ['ngFileUpload', 'ui.bootstrap.datetimepicker', 'ui.dateTimeInput', 'ui.router', 'ngAnimate','ngMaterial',  'ngMessages']);
 
 mymodule.config(function($stateProvider, $locationProvider){
    $locationProvider.html5Mode({ enabled: true, requireBase: false })
@@ -8221,6 +8221,46 @@ angular.module('myModule').provider("myProvider", function() {
     }
 });
 
+angular.module('myModule').controller('MultiDialogController',['$scope', '$q', '$mdDialog', function($scope, $q,$mdDialog){
+    $scope.started = true;
+    $scope.dialogsData = [
+        'I am first dialog',
+        'I am second dialog',
+        'I am third dialog'
+    ];
+    $scope.dialogsResponses = [];
+    
+    $scope.showSingleDialog = function(dataText, ){
+         return $mdDialog.show(
+              $mdDialog.alert()
+                .title(dataText)
+                .textContent(dataText)
+                .ariaLabel('Alert Dialog Demo')
+                .ok('Got it!')
+            );
+
+    };
+    $scope.openDialogs = function(ev){
+     
+         $scope.dialogsData.forEach(function(dataText, idx){
+
+             if(idx === 0) {
+                $scope.dialogsResponses[idx] = $scope.showSingleDialog(dataText);
+             } else {
+                $scope.dialogsResponses[idx] = $scope.dialogsResponses[idx-1].then(
+                    function() {
+                        return $scope.showSingleDialog(dataText)
+                    });
+             }
+
+            console.log($scope.dialogsResponses)
+         });
+
+         $q.all($scope.dialogsResponses).then(function(v){
+            console.log('q.all fulfilled, v = ', v);
+         });
+    };
+}])
 // run block
 mymodule.run(['$rootScope', function($rootScope) {
     $rootScope.companyName = 'Googly';
